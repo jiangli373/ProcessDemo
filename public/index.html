@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>phantomjs截图</title>
+    <meta charset="UTF-8"/>
+    <script type="text/javascript" src="javascripts/jquery-1.7.1.min.js"></script>
+
+</head>
+<body>
+    <div><label>输入网址:</label><input type="text" id="weburl"><input type="button" value="提交" id="goCutCover"></div>
+    <div id="showImg">
+     <h1>显示图片</h1>
+    </div>
+<script>
+    $(document).ready(function(){
+         $("#goCutCover").on('click',function(){
+             $.ajax({
+                 url:'/cutcover',
+                 type:'post',
+                 data:{
+                   'weburl':$("#weburl").val()
+                 },
+                 success:function(data){
+                     console.log(data);
+                     $("#showImg img").remove();
+                     $("#showImg").append('<img src="images/img.jpg">');
+                 }
+             });
+        });
+    });
+</script>
+</body>
+</html>
