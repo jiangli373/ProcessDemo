@@ -10,7 +10,7 @@ var app = express();
 var spawn = require('child_process').spawn;
 
 //使用node-webshot
-var webshot = require('lib/webshot');
+var webshot = require('webshot');
 var options = {
 //    screenSize: {
 //        width: 320
@@ -46,9 +46,9 @@ app.configure('production', function () {
 app.get('/', routes.index);
 app.post('/cutcover', function (req, res) {
     var imageName = __dirname + '/public/images/img.jpg';
-    /*
-     使用child_process
-     var phantomjs = spawn('/opt/phantomjs-1.7.0-macosx/bin/phantomjs', ['/opt/phantomjs-1.7.0-macosx/examples/rasterize.js', req.body.weburl, imageName]);
+
+     //使用child_process
+     var phantomjs = spawn('phantomjs', [__dirname +'/rasterize.js', req.body.weburl, imageName]);
      phantomjs.stdout.on('data', function (data) {
      console.log('stdout:' + data);
      });
@@ -59,13 +59,13 @@ app.post('/cutcover', function (req, res) {
      console.log('exit:' + code);
      res.send({'imgurl':imageName});
      });
-     */
+
 
     //使用node-webshot
-    webshot(req.body.weburl, imageName, options, function (err) {
-        if (err) return console.log(err);
-        res.send({'imgurl':imageName});
-    });
+//    webshot(req.body.weburl, imageName, options, function (err) {
+//        if (err) return console.log(err);
+//        res.send({'imgurl':imageName});
+//    });
 
 });
 

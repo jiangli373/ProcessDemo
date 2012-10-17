@@ -6,5 +6,6 @@
       "express": "*"
     , "jade": ">= 0.0.1"
     ,"socket.io":"*"
+    ,"webshot":"*"
   }
 }
