@@ -5,18 +5,20 @@
  * Time: 下午3:19
  * To change this template use File | Settings | File Templates.
  */
-var fork = require('child_process');
+var spawn = require('child_process').spawn;
 
-//使用fork
-var sub = fork.fork(__dirname + '/sub.js');
+//使用 spawn
+var  ls  = spawn('ls', ['-lh', '/usr']);//command是命令,[]中是执行命令的参数
 
-sub.on('message', function (m) {
-    console.log('PARENT got message:', m);
-    sub.disconnect();
+ls.stdout.on('data', function (data) {
+    console.log('stdout: ' + data);
 });
 
-sub.send({ hello:'world' });
+ls.stderr.on('data', function (data) {
+    console.log('stderr: ' + data);
+});
 
-sub.on('exit', function (code) {
+ls.on('exit',function(code){
     console.log('child process exited with code ' + code);
 });
+
